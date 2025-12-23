@@ -5,9 +5,25 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Dashboard - FinControl</title>
+    
+    <link rel="manifest" href="manifest.json">
+    <meta name="theme-color" content="#0f1014">
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+    <link rel="apple-touch-icon" href="https://cdn-icons-png.flaticon.com/512/2933/2933116.png">
+
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.10.0/font/bootstrap-icons.css">
     <link rel="stylesheet" href="style.css">
+
+    <script type="importmap">
+      {
+        "imports": {
+          "@popperjs/core": "https://cdn.jsdelivr.net/npm/@popperjs/core@2.11.8/dist/esm/popper.min.js",
+          "bootstrap": "https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.esm.min.js"
+        }
+      }
+    </script>
 </head>
 
 <body>
@@ -40,42 +56,42 @@
                 <div class="col-lg-5">
 
                     <div class="glass-card balance-card p-4 mb-4">
-    <div class="d-flex justify-content-between align-items-start mb-2">
-        <div>
-            <p class="text-muted small mb-0 text-uppercase" id="profileNameDisplay">CARTEIRA PRINCIPAL</p>
-            <small class="text-white-50" style="font-size: 0.75rem;">Saldo Disponível (Real)</small>
-        </div>
-        <button onclick="gerarResumoSemanal()" class="btn btn-sm btn-outline-light rounded-pill px-3" style="border: 1px solid rgba(255,255,255,0.2);">
-            <i class="bi bi-graph-up-arrow me-1"></i> Resumo 7d
-        </button>
-    </div>
-    
-    <h1 class="text-money display-5 mb-3" id="saldoDisplay">R$ 0,00</h1>
+                        <div class="d-flex justify-content-between align-items-start mb-2">
+                            <div>
+                                <p class="text-muted small mb-0 text-uppercase" id="profileNameDisplay">CARTEIRA PRINCIPAL</p>
+                                <small class="text-white-50" style="font-size: 0.75rem;">Saldo Disponível (Real)</small>
+                            </div>
+                            <button onclick="gerarResumoSemanal()" class="btn btn-sm btn-outline-light rounded-pill px-3" style="border: 1px solid rgba(255,255,255,0.2);">
+                                <i class="bi bi-graph-up-arrow me-1"></i> Resumo 7d
+                            </button>
+                        </div>
+                        
+                        <h1 class="text-money display-5 mb-3" id="saldoDisplay">R$ 0,00</h1>
 
-    <div class="pt-3 border-top border-secondary d-flex justify-content-between align-items-center">
-        <div class="d-flex align-items-center gap-2" title="Valores pendentes para entrar">
-            <div class="bg-success bg-opacity-10 rounded-circle p-1 d-flex justify-content-center align-items-center" style="width:24px; height:24px;">
-                <i class="bi bi-arrow-up-short text-success"></i>
-            </div>
-            <div>
-                <small class="text-white-50 d-block" style="font-size: 0.65rem; line-height: 1;">A RECEBER</small>
-                <span class="text-success fw-bold small" id="previstoEntrada">R$ 0,00</span>
-            </div>
-        </div>
+                        <div class="pt-3 border-top border-secondary d-flex justify-content-between align-items-center">
+                            <div class="d-flex align-items-center gap-2" title="Valores pendentes para entrar">
+                                <div class="bg-success bg-opacity-10 rounded-circle p-1 d-flex justify-content-center align-items-center" style="width:24px; height:24px;">
+                                    <i class="bi bi-arrow-up-short text-success"></i>
+                                </div>
+                                <div>
+                                    <small class="text-white-50 d-block" style="font-size: 0.65rem; line-height: 1;">A RECEBER</small>
+                                    <span class="text-success fw-bold small" id="previstoEntrada">R$ 0,00</span>
+                                </div>
+                            </div>
 
-        <div class="vr bg-secondary opacity-50"></div>
+                            <div class="vr bg-secondary opacity-50"></div>
 
-        <div class="d-flex align-items-center gap-2" title="Contas e Obrigações pendentes">
-            <div>
-                <small class="text-white-50 d-block text-end" style="font-size: 0.65rem; line-height: 1;">A PAGAR</small>
-                <span class="text-danger fw-bold small text-end d-block" id="previstoSaida">R$ 0,00</span>
-            </div>
-             <div class="bg-danger bg-opacity-10 rounded-circle p-1 d-flex justify-content-center align-items-center" style="width:24px; height:24px;">
-                <i class="bi bi-arrow-down-short text-danger"></i>
-            </div>
-        </div>
-    </div>
-</div>
+                            <div class="d-flex align-items-center gap-2" title="Contas e Obrigações pendentes">
+                                <div>
+                                    <small class="text-white-50 d-block text-end" style="font-size: 0.65rem; line-height: 1;">A PAGAR</small>
+                                    <span class="text-danger fw-bold small text-end d-block" id="previstoSaida">R$ 0,00</span>
+                                </div>
+                                <div class="bg-danger bg-opacity-10 rounded-circle p-1 d-flex justify-content-center align-items-center" style="width:24px; height:24px;">
+                                    <i class="bi bi-arrow-down-short text-danger"></i>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
 
                     <div class="row g-2 mb-4">
                         <div class="col-4">
@@ -164,14 +180,17 @@
                         <input type="hidden" name="tipo" value="receita">
                         <div class="mb-3">
                             <label class="small text-muted mb-1">NOME / TÍTULO</label>
-                            <input type="text" id="recNome" class="form-control" placeholder="Ex: Salário, Venda..."
-                                required>
+                            <input type="text" id="recNome" class="form-control" placeholder="Ex: Salário, Venda..." required>
                         </div>
+                        
                         <div class="mb-3">
                             <label class="small text-muted mb-1">VALOR (R$)</label>
-                            <input type="number" id="recValor" class="form-control" step="0.01" placeholder="0.00"
-                                required>
+                            <div class="input-group">
+                                <span class="input-group-text bg-transparent border-secondary text-white-50">R$</span>
+                                <input type="tel" inputmode="numeric" id="recValor" class="form-control text-white fs-4 fw-bold" placeholder="0,00" required>
+                            </div>
                         </div>
+
                         <div class="row">
                             <div class="col-6 mb-3">
                                 <label class="small text-muted mb-1">DATA</label>
@@ -209,14 +228,17 @@
                         <input type="hidden" name="tipo" value="despesa">
                         <div class="mb-3">
                             <label class="small text-muted mb-1">NOME DA DESPESA</label>
-                            <input type="text" id="despNome" class="form-control"
-                                placeholder="Ex: Conta de Luz, Aluguel..." required>
+                            <input type="text" id="despNome" class="form-control" placeholder="Ex: Conta de Luz, Aluguel..." required>
                         </div>
+                        
                         <div class="mb-3">
                             <label class="small text-muted mb-1">VALOR (R$)</label>
-                            <input type="number" id="despValor" class="form-control" step="0.01" placeholder="0.00"
-                                required>
+                            <div class="input-group">
+                                <span class="input-group-text bg-transparent border-secondary text-white-50">R$</span>
+                                <input type="tel" inputmode="numeric" id="despValor" class="form-control text-white fs-4 fw-bold" placeholder="0,00" required>
+                            </div>
                         </div>
+
                         <div class="row">
                             <div class="col-6 mb-3">
                                 <label class="small text-muted mb-1">DATA</label>
@@ -260,12 +282,14 @@
                         <div class="row">
                             <div class="col-6 mb-3">
                                 <label class="small text-muted mb-1">VALOR TOTAL (R$)</label>
-                                <input type="number" id="obrigValor" class="form-control" placeholder="0.00" step="0.01"
-                                    required>
+                                <div class="input-group">
+                                    <span class="input-group-text bg-transparent border-secondary text-white-50 small">R$</span>
+                                    <input type="tel" inputmode="numeric" id="obrigValor" class="form-control text-white fw-bold" placeholder="0,00" required>
+                                </div>
                             </div>
                             <div class="col-6 mb-3">
                                 <label class="small text-muted mb-1">DIA VENCIMENTO</label>
-                                <input type="number" id="obrigDia" class="form-control" placeholder="Dia (Ex: 05)"
+                                <input type="tel" inputmode="numeric" id="obrigDia" class="form-control" placeholder="Dia (Ex: 05)"
                                     min="1" max="31">
                             </div>
                         </div>
@@ -355,8 +379,7 @@
                     <form id="formMeta">
                         <div class="mb-3">
                             <label class="small text-muted mb-1">QUAL O LIMITE MENSAL?</label>
-                            <input type="number" id="inputMeta" class="form-control" placeholder="Ex: 2000.00"
-                                step="0.01" required>
+                            <input type="tel" inputmode="numeric" id="inputMeta" class="form-control text-white text-center fs-2 fw-bold bg-transparent border-0" placeholder="0,00">
                         </div>
                         <button type="submit" class="btn btn-primary w-100">Salvar Meta</button>
                     </form>
@@ -364,6 +387,7 @@
             </div>
         </div>
     </div>
+
     <div class="modal fade" id="modalConfirmacao" tabindex="-1" aria-hidden="true">
         <div class="modal-dialog modal-dialog-centered">
             <div class="modal-content glass-modal" style="border: 1px solid rgba(220, 53, 69, 0.3);">
@@ -386,6 +410,7 @@
             </div>
         </div>
     </div>
+
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
     <script type="module" src="dashboard.js"></script>
 </body>

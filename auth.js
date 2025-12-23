@@ -3,9 +3,20 @@ import {
     signInWithEmailAndPassword, 
     createUserWithEmailAndPassword,
     updateProfile,
-    sendPasswordResetEmail 
+    sendPasswordResetEmail,
+    onAuthStateChanged // <--- ADICIONE ESTA LINHA AQUI
 } from "https://www.gstatic.com/firebasejs/10.8.0/firebase-auth.js";
 
+// --- VIGIA DE SESSÃO ATIVA (LOGIN PERSISTENTE) ---
+onAuthStateChanged(auth, (user) => {
+    const path = window.location.pathname;
+    const isLoginPage = path.endsWith('index.html') || path === '/' || path.endsWith('/');
+
+    if (user && isLoginPage) {
+        console.log("Usuário já autenticado detectado. Indo para seleção...");
+        window.location.href = "selecao.html";
+    }
+});
 // --- LOGIN (Funciona no index.html) ---
 const loginForm = document.getElementById('loginForm');
 if(loginForm) {
