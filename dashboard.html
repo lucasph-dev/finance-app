@@ -1,0 +1,393 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Dashboard - FinControl</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.10.0/font/bootstrap-icons.css">
+    <link rel="stylesheet" href="style.css">
+</head>
+
+<body>
+
+    <nav class="navbar navbar-dark py-3 mb-4" style="border-bottom: 1px solid var(--glass-border);">
+        <div class="container">
+            <a class="navbar-brand app-brand" href="#">Fin<span>Control</span></a>
+
+            <div class="d-flex align-items-center gap-3">
+                <span class="text-white small d-none d-md-block">Olá, <span id="userNameDisplay"
+                        class="fw-bold">...</span></span>
+                <button id="btnLogout" class="btn btn-outline-light btn-sm rounded-pill px-3">
+                    <i class="bi bi-box-arrow-right"></i> Sair
+                </button>
+            </div>
+        </div>
+    </nav>
+
+    <div class="container">
+
+        <div id="loading" class="text-center text-white mt-5">
+            <div class="spinner-border text-success" role="status"></div>
+            <p class="mt-2 text-muted small">Sincronizando finanças...</p>
+        </div>
+
+        <div id="dashboardContent" class="d-none">
+
+            <div class="row g-4">
+
+                <div class="col-lg-5">
+
+                    <div class="glass-card balance-card p-4 mb-4">
+    <div class="d-flex justify-content-between align-items-start mb-2">
+        <div>
+            <p class="text-muted small mb-0 text-uppercase" id="profileNameDisplay">CARTEIRA PRINCIPAL</p>
+            <small class="text-white-50" style="font-size: 0.75rem;">Saldo Disponível (Real)</small>
+        </div>
+        <button onclick="gerarResumoSemanal()" class="btn btn-sm btn-outline-light rounded-pill px-3" style="border: 1px solid rgba(255,255,255,0.2);">
+            <i class="bi bi-graph-up-arrow me-1"></i> Resumo 7d
+        </button>
+    </div>
+    
+    <h1 class="text-money display-5 mb-3" id="saldoDisplay">R$ 0,00</h1>
+
+    <div class="pt-3 border-top border-secondary d-flex justify-content-between align-items-center">
+        <div class="d-flex align-items-center gap-2" title="Valores pendentes para entrar">
+            <div class="bg-success bg-opacity-10 rounded-circle p-1 d-flex justify-content-center align-items-center" style="width:24px; height:24px;">
+                <i class="bi bi-arrow-up-short text-success"></i>
+            </div>
+            <div>
+                <small class="text-white-50 d-block" style="font-size: 0.65rem; line-height: 1;">A RECEBER</small>
+                <span class="text-success fw-bold small" id="previstoEntrada">R$ 0,00</span>
+            </div>
+        </div>
+
+        <div class="vr bg-secondary opacity-50"></div>
+
+        <div class="d-flex align-items-center gap-2" title="Contas e Obrigações pendentes">
+            <div>
+                <small class="text-white-50 d-block text-end" style="font-size: 0.65rem; line-height: 1;">A PAGAR</small>
+                <span class="text-danger fw-bold small text-end d-block" id="previstoSaida">R$ 0,00</span>
+            </div>
+             <div class="bg-danger bg-opacity-10 rounded-circle p-1 d-flex justify-content-center align-items-center" style="width:24px; height:24px;">
+                <i class="bi bi-arrow-down-short text-danger"></i>
+            </div>
+        </div>
+    </div>
+</div>
+
+                    <div class="row g-2 mb-4">
+                        <div class="col-4">
+                            <button class="btn btn-income w-100 py-3 rounded-4" data-bs-toggle="modal"
+                                data-bs-target="#modalReceita">
+                                <i class="bi bi-arrow-up-circle fs-4 d-block mb-1"></i>
+                                <span class="small fw-bold">Receita</span>
+                            </button>
+                        </div>
+                        <div class="col-4">
+                            <button class="btn btn-expense w-100 py-3 rounded-4" data-bs-toggle="modal"
+                                data-bs-target="#modalDespesa">
+                                <i class="bi bi-arrow-down-circle fs-4 d-block mb-1"></i>
+                                <span class="small fw-bold">Despesa</span>
+                            </button>
+                        </div>
+                        <div class="col-4">
+                            <button class="btn w-100 py-3 rounded-4 text-white"
+                                style="border: 1px solid rgba(255,255,255,0.2); background: rgba(255,255,255,0.05);"
+                                data-bs-toggle="modal" data-bs-target="#modalObrigacao">
+                                <i class="bi bi-people fs-4 d-block mb-1 text-warning"></i>
+                                <span class="small fw-bold">Obrigação</span>
+                            </button>
+                        </div>
+                    </div>
+
+                    <div class="glass-card p-3 mb-4 position-relative">
+                        <div class="d-flex justify-content-between align-items-center mb-2">
+                            <small class="text-white-50 fw-bold">META DE GASTOS MENSAL</small>
+                            <button class="btn btn-link btn-sm text-white-50 p-0" data-bs-toggle="modal"
+                                data-bs-target="#modalMeta">
+                                <i class="bi bi-gear-fill"></i>
+                            </button>
+                        </div>
+
+                        <div class="progress"
+                            style="height: 25px; background-color: rgba(255,255,255,0.1); border-radius: 12px;">
+                            <div id="barraMeta"
+                                class="progress-bar progress-bar-striped progress-bar-animated bg-success"
+                                role="progressbar" style="width: 0%"></div>
+                        </div>
+
+                        <div class="d-flex justify-content-between mt-2">
+                            <small class="text-white" id="metaGastosAtual">Gastou: R$ 0,00</small>
+                            <small class="text-muted" id="metaLimite">Teto: R$ 0,00</small>
+                        </div>
+                    </div>
+
+                    <div class="mt-4 mb-5">
+                        <h6 class="text-white-50 small fw-bold mb-3 ps-1">OBRIGAÇÕES MENSAIS</h6>
+                        <div id="listaObrigacoes" class="d-flex flex-column gap-3"></div>
+                    </div>
+
+                </div>
+
+                <div class="col-lg-7">
+                    <div class="glass-card h-100">
+                        <div
+                            class="p-3 border-bottom border-secondary d-flex justify-content-between align-items-center">
+                            <h6 class="text-white mb-0 fw-bold">Últimas Transações</h6>
+                            <a href="#" class="small text-muted text-decoration-none">Ver todas</a>
+                        </div>
+
+                        <div class="p-0">
+                            <div class="text-center py-5">
+                                <i class="bi bi-receipt text-muted fs-1 opacity-25"></i>
+                                <p class="text-muted small mt-2">Nenhuma movimentação recente.</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="modal fade" id="modalReceita" tabindex="-1" aria-hidden="true">
+        <div class="modal-dialog modal-dialog-centered">
+            <div class="modal-content glass-modal">
+                <div class="modal-header border-0">
+                    <h5 class="modal-title fw-bold text-success"><i class="bi bi-arrow-up-circle me-2"></i>Nova Receita
+                    </h5>
+                    <button type="button" class="btn-close btn-close-white" data-bs-dismiss="modal"></button>
+                </div>
+                <div class="modal-body">
+                    <form id="formReceita">
+                        <input type="hidden" name="tipo" value="receita">
+                        <div class="mb-3">
+                            <label class="small text-muted mb-1">NOME / TÍTULO</label>
+                            <input type="text" id="recNome" class="form-control" placeholder="Ex: Salário, Venda..."
+                                required>
+                        </div>
+                        <div class="mb-3">
+                            <label class="small text-muted mb-1">VALOR (R$)</label>
+                            <input type="number" id="recValor" class="form-control" step="0.01" placeholder="0.00"
+                                required>
+                        </div>
+                        <div class="row">
+                            <div class="col-6 mb-3">
+                                <label class="small text-muted mb-1">DATA</label>
+                                <input type="date" id="recData" class="form-control" required>
+                            </div>
+                            <div class="col-6 mb-3">
+                                <label class="small text-muted mb-1">STATUS</label>
+                                <select id="recStatus" class="form-control bg-dark text-white border-secondary">
+                                    <option value="pago">Recebido</option>
+                                    <option value="pendente">Pendente</option>
+                                </select>
+                            </div>
+                        </div>
+                        <div class="mb-3">
+                            <label class="small text-muted mb-1">DESCRIÇÃO (OPCIONAL)</label>
+                            <textarea id="recDesc" class="form-control" rows="2"></textarea>
+                        </div>
+                        <button type="submit" class="btn btn-income w-100">Salvar Receita</button>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="modal fade" id="modalDespesa" tabindex="-1" aria-hidden="true">
+        <div class="modal-dialog modal-dialog-centered">
+            <div class="modal-content glass-modal">
+                <div class="modal-header border-0">
+                    <h5 class="modal-title fw-bold text-danger"><i class="bi bi-arrow-down-circle me-2"></i>Nova Despesa
+                    </h5>
+                    <button type="button" class="btn-close btn-close-white" data-bs-dismiss="modal"></button>
+                </div>
+                <div class="modal-body">
+                    <form id="formDespesa">
+                        <input type="hidden" name="tipo" value="despesa">
+                        <div class="mb-3">
+                            <label class="small text-muted mb-1">NOME DA DESPESA</label>
+                            <input type="text" id="despNome" class="form-control"
+                                placeholder="Ex: Conta de Luz, Aluguel..." required>
+                        </div>
+                        <div class="mb-3">
+                            <label class="small text-muted mb-1">VALOR (R$)</label>
+                            <input type="number" id="despValor" class="form-control" step="0.01" placeholder="0.00"
+                                required>
+                        </div>
+                        <div class="row">
+                            <div class="col-6 mb-3">
+                                <label class="small text-muted mb-1">DATA</label>
+                                <input type="date" id="despData" class="form-control" required>
+                            </div>
+                            <div class="col-6 mb-3">
+                                <label class="small text-muted mb-1">STATUS</label>
+                                <select id="despStatus" class="form-control bg-dark text-white border-secondary">
+                                    <option value="pago">Pago</option>
+                                    <option value="pendente" selected>Pendente</option>
+                                </select>
+                            </div>
+                        </div>
+                        <div class="mb-3">
+                            <label class="small text-muted mb-1">DESCRIÇÃO</label>
+                            <textarea id="despDesc" class="form-control" rows="2" placeholder="Detalhes..."></textarea>
+                        </div>
+                        <button type="submit" class="btn btn-expense w-100">Salvar Despesa</button>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="modal fade" id="modalObrigacao" tabindex="-1" aria-hidden="true">
+        <div class="modal-dialog modal-dialog-centered">
+            <div class="modal-content glass-modal">
+                <div class="modal-header border-0">
+                    <h5 class="modal-title fw-bold text-warning"><i class="bi bi-people me-2"></i>Nova Obrigação</h5>
+                    <button type="button" class="btn-close btn-close-white" data-bs-dismiss="modal"></button>
+                </div>
+                <div class="modal-body">
+                    <p class="text-muted small">Cadastre contas fixas ou funcionários.</p>
+                    <form id="formObrigacao">
+                        <div class="mb-3">
+                            <label class="small text-muted mb-1">NOME (QUEM?)</label>
+                            <input type="text" id="obrigNome" class="form-control" placeholder="Ex: Funcionário João"
+                                required>
+                        </div>
+
+                        <div class="row">
+                            <div class="col-6 mb-3">
+                                <label class="small text-muted mb-1">VALOR TOTAL (R$)</label>
+                                <input type="number" id="obrigValor" class="form-control" placeholder="0.00" step="0.01"
+                                    required>
+                            </div>
+                            <div class="col-6 mb-3">
+                                <label class="small text-muted mb-1">DIA VENCIMENTO</label>
+                                <input type="number" id="obrigDia" class="form-control" placeholder="Dia (Ex: 05)"
+                                    min="1" max="31">
+                            </div>
+                        </div>
+
+                        <div class="mb-3">
+                            <label class="small text-muted mb-1">MODELO DE PAGAMENTO</label>
+                            <select id="obrigModelo" class="form-select bg-dark text-white border-secondary">
+                                <option value="unico">Pagamento Único (Mensal)</option>
+                                <option value="salario">Salário (40% dia 15 / 60% dia 30)</option>
+                                <option value="dividido">Dividir em 2x Iguais (50% / 50%)</option>
+                            </select>
+                        </div>
+
+                        <div class="mb-3">
+                            <label class="small text-muted mb-1">OBSERVAÇÃO (OPCIONAL)</label>
+                            <input type="text" id="obrigObs" class="form-control" placeholder="Ex: Pix, Dinheiro...">
+                        </div>
+
+                        <button type="submit" class="btn btn-warning w-100 text-dark fw-bold">Salvar Obrigação</button>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="modal fade" id="modalResumo" tabindex="-1" aria-hidden="true">
+        <div class="modal-dialog modal-dialog-centered">
+            <div class="modal-content glass-modal">
+                <div class="modal-header border-0">
+                    <h5 class="modal-title fw-bold text-white">Resumo: Últimos 7 Dias</h5>
+                    <button type="button" class="btn-close btn-close-white" data-bs-dismiss="modal"></button>
+                </div>
+                <div class="modal-body text-center">
+
+                    <div class="row g-3">
+                        <div class="col-6">
+                            <div class="p-3 rounded-3"
+                                style="background: rgba(25, 135, 84, 0.1); border: 1px solid rgba(25, 135, 84, 0.3);">
+                                <small class="text-success fw-bold text-uppercase">Entrou</small>
+                                <h4 class="text-white mb-0 mt-1" id="resumoEntrada">R$ 0,00</h4>
+                            </div>
+                        </div>
+                        <div class="col-6">
+                            <div class="p-3 rounded-3"
+                                style="background: rgba(220, 53, 69, 0.1); border: 1px solid rgba(220, 53, 69, 0.3);">
+                                <small class="text-danger fw-bold text-uppercase">Saiu</small>
+                                <h4 class="text-white mb-0 mt-1" id="resumoSaida">R$ 0,00</h4>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="mt-4 pt-3 border-top border-secondary">
+                        <small class="text-muted">Balanço do Período</small>
+                        <h2 class="display-6 fw-bold mt-1" id="resumoBalanco">R$ 0,00</h2>
+                        <p class="small text-muted mb-0" id="resumoMsg">Análise...</p>
+                    </div>
+
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="modal fade" id="feedbackModal" tabindex="-1" aria-labelledby="feedbackModalLabel" aria-hidden="true">
+        <div class="modal-dialog modal-dialog-centered">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="feedbackModalLabel">Aviso</h5>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <div class="modal-body" id="feedbackModalBody">
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-primary" data-bs-dismiss="modal">Entendido</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="modal fade" id="modalMeta" tabindex="-1" aria-hidden="true">
+        <div class="modal-dialog modal-dialog-centered">
+            <div class="modal-content glass-modal">
+                <div class="modal-header border-0">
+                    <h5 class="modal-title fw-bold text-white">Definir Teto de Gastos</h5>
+                    <button type="button" class="btn-close btn-close-white" data-bs-dismiss="modal"></button>
+                </div>
+                <div class="modal-body">
+                    <form id="formMeta">
+                        <div class="mb-3">
+                            <label class="small text-muted mb-1">QUAL O LIMITE MENSAL?</label>
+                            <input type="number" id="inputMeta" class="form-control" placeholder="Ex: 2000.00"
+                                step="0.01" required>
+                        </div>
+                        <button type="submit" class="btn btn-primary w-100">Salvar Meta</button>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="modal fade" id="modalConfirmacao" tabindex="-1" aria-hidden="true">
+        <div class="modal-dialog modal-dialog-centered">
+            <div class="modal-content glass-modal" style="border: 1px solid rgba(220, 53, 69, 0.3);">
+                <div class="modal-header border-0">
+                    <h5 class="modal-title fw-bold text-danger">
+                        <i class="bi bi-exclamation-triangle-fill me-2"></i>Atenção
+                    </h5>
+                    <button type="button" class="btn-close btn-close-white" data-bs-dismiss="modal"></button>
+                </div>
+                <div class="modal-body text-center">
+                    <p class="text-white mb-1">Tem certeza que deseja excluir este item?</p>
+                    <small class="text-muted">Essa ação não pode ser desfeita.</small>
+                </div>
+                <div class="modal-footer border-0 justify-content-center">
+                    <button type="button" class="btn btn-outline-light rounded-pill px-4"
+                        data-bs-dismiss="modal">Cancelar</button>
+                    <button type="button" onclick="confirmarExclusaoReal()"
+                        class="btn btn-danger rounded-pill px-4">Sim, Excluir</button>
+                </div>
+            </div>
+        </div>
+    </div>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+    <script type="module" src="dashboard.js"></script>
+</body>
+
+</html>

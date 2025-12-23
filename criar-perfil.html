@@ -1,0 +1,107 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Configurar Perfil - FinControl</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.10.0/font/bootstrap-icons.css">
+    <link rel="stylesheet" href="style.css">
+</head>
+
+<body class="d-flex align-items-center justify-content-center">
+
+    <div class="container">
+        <div class="row justify-content-center">
+            <div class="col-md-6 col-lg-5">
+
+                <div class="glass-card p-4 p-md-5">
+                    <div class="text-center mb-4">
+                        <div class="d-inline-flex align-items-center justify-content-center bg-success rounded-circle mb-3"
+                            style="width: 60px; height: 60px; bg-opacity: 0.2;">
+                            <i class="bi bi-wallet2 fs-2 text-white"></i>
+                        </div>
+                        <h3 class="fw-bold text-white">Novo Perfil</h3>
+                        <p class="text-muted small">Defina onde seu dinheiro será guardado.</p>
+                    </div>
+
+                    <form id="perfilForm">
+                        <div class="mb-3">
+                            <label class="text-muted small mb-1">NOME DA CARTEIRA</label>
+                            <input type="text" id="nomePerfil" class="form-control" placeholder="Ex: Conta Principal"
+                                required>
+                        </div>
+
+                        <div class="mb-3">
+                            <label class="text-muted small mb-1">DESCRIÇÃO (OPCIONAL)</label>
+                            <textarea id="descricao" class="form-control" rows="2"
+                                placeholder="Ex: Gastos fixos, salário..."></textarea>
+                        </div>
+
+                        <div class="mb-4">
+                            <label class="text-muted small mb-1">SALDO ATUAL</label>
+                            <div class="input-group">
+                                <span class="input-group-text border-0 text-white"
+                                    style="background: rgba(255,255,255,0.1);">R$</span>
+                                <input type="number" id="saldoInicial" class="form-control" step="0.01"
+                                    placeholder="0,00" required>
+                            </div>
+                        </div>
+
+                        <button type="submit" class="btn btn-action w-100 py-3">
+                            Criar Perfil <i class="bi bi-arrow-right ms-2"></i>
+                        </button>
+                    </form>
+                </div>
+
+            </div>
+        </div>
+    </div>
+
+    <div class="modal fade" id="welcomeModal" tabindex="-1" aria-hidden="true" data-bs-backdrop="static">
+        <div class="modal-dialog modal-dialog-centered">
+            <div class="modal-content glass-modal">
+                <div class="modal-header border-0">
+                    <h5 class="modal-title fw-bold">Bem-vindo a bordo! 🚀</h5>
+                    <button type="button" class="btn-close btn-close-white" data-bs-dismiss="modal"
+                        aria-label="Close"></button>
+                </div>
+                <div class="modal-body text-center p-4">
+                    <h4 class="mb-3 fw-light">Olá, <span id="modalUserName" class="fw-bold text-success">...</span></h4>
+                    <p class="text-muted mb-4">
+                        Ficamos muito felizes em saber que você decidiu tomar o controle financeiro da sua vida.
+                    </p>
+                    <p class="fw-bold text-white">
+                        Agora, vamos criar seu primeiro perfil financeiro para começar com o pé direito!
+                    </p>
+                </div>
+                <div class="modal-footer border-0 justify-content-center pb-4">
+                    <button type="button" class="btn btn-action px-5" data-bs-dismiss="modal">Vamos lá!</button>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="modal fade" id="successModal" tabindex="-1" aria-hidden="true" data-bs-backdrop="static">
+        <div class="modal-dialog modal-dialog-centered">
+            <div class="modal-content glass-modal text-center p-4">
+                <div class="mb-3">
+                    <div class="d-inline-flex align-items-center justify-content-center bg-success rounded-circle"
+                        style="width: 70px; height: 70px;">
+                        <i class="bi bi-check-lg text-white fs-1"></i>
+                    </div>
+                </div>
+                <h3 class="fw-bold text-white">Perfil Criado!</h3>
+                <p class="text-muted">Tudo pronto. Vamos para a sua Dashboard gerenciar esse dinheiro.</p>
+                <button type="button" class="btn btn-action w-100 mt-3" id="btnGoDashboard">
+                    Ir para Dashboard
+                </button>
+            </div>
+        </div>
+    </div>
+
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+    <script type="module" src="perfil.js"></script>
+</body>
+
+</html>

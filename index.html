@@ -1,0 +1,119 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Login - FinControl</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.10.0/font/bootstrap-icons.css">
+    <link rel="stylesheet" href="style.css">
+    
+    <style>
+        /* Pequeno utilitário para esconder elementos */
+        .d-none-custom { display: none !important; }
+        
+        /* Cursor pointer para links */
+        .cursor-pointer { cursor: pointer; }
+    </style>
+</head>
+<body class="d-flex align-items-center justify-content-center">
+
+    <div class="container">
+        <div class="row justify-content-center">
+            <div class="col-md-5 col-lg-4">
+                
+                <div class="text-center mb-4">
+                    <i class="bi bi-wallet2 fs-1 text-white mb-2 d-block" style="opacity: 0.8;"></i>
+                    <h1 class="app-brand h2">Fin<span>Control</span></h1>
+                    <p class="text-muted small">Controle inteligente, futuro tranquilo.</p>
+                </div>
+
+                <div class="glass-card p-4 p-md-5">
+                    
+                    <h4 class="fw-bold mb-4 text-center text-white" id="formTitle">Acessar Conta</h4>
+                    
+                    <form id="loginForm">
+                        <div class="mb-3">
+                            <label class="text-muted small mb-1">E-MAIL</label>
+                            <input type="email" id="email" class="form-control" placeholder="seu@email.com" required>
+                        </div>
+                        <div class="mb-4">
+                            <label class="text-muted small mb-1">SENHA</label>
+                            <input type="password" id="senha" class="form-control" placeholder="••••••••" required>
+                        </div>
+                        
+                        <div class="d-grid mb-3">
+                            <button type="submit" class="btn btn-action w-100">Entrar</button>
+                        </div>
+
+                        <div class="text-center">
+                            <a href="#" class="small text-muted" style="text-decoration: underline;">Esqueceu a senha?</a>
+                        </div>
+                    </form>
+
+                    <form id="form-register" class="d-none-custom">
+                        <div class="mb-3">
+                            <label class="text-muted small mb-1">SEU NOME</label>
+                            <input type="text" id="regNome" class="form-control" placeholder="Como quer ser chamado?" required>
+                        </div>
+
+                        <div class="mb-3">
+                            <label class="text-muted small mb-1">E-MAIL</label>
+                            <input type="email" id="regEmail" class="form-control" placeholder="seu@email.com" required>
+                        </div>
+                        <div class="mb-4">
+                            <label class="text-muted small mb-1">SENHA</label>
+                            <input type="password" id="regPassword" class="form-control" placeholder="Crie uma senha forte" required>
+                        </div>
+                        
+                        <div class="d-grid">
+                            <button type="submit" class="btn btn-action w-100">Criar Conta Grátis</button>
+                        </div>
+                    </form>
+
+                </div>
+
+                <div class="text-center mt-4">
+                    <span id="toggleText" class="text-muted">Não tem uma conta? </span>
+                    <a id="btnToggle" class="fw-bold cursor-pointer">Cadastre-se</a>
+                </div>
+
+            </div>
+        </div>
+    </div>
+
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+    
+    <script>
+        const btnToggle = document.getElementById('btnToggle');
+        const loginForm = document.getElementById('loginForm');
+        const registerForm = document.getElementById('form-register');
+        const formTitle = document.getElementById('formTitle');
+        const toggleText = document.getElementById('toggleText');
+        
+        let isLoginMode = true;
+
+        btnToggle.addEventListener('click', () => {
+            if (isLoginMode) {
+                // Mudar para Cadastro
+                loginForm.classList.add('d-none-custom');
+                registerForm.classList.remove('d-none-custom');
+                formTitle.innerText = "Criar Nova Conta";
+                toggleText.innerText = "Já tem uma conta? ";
+                btnToggle.innerText = "Fazer Login";
+            } else {
+                // Mudar para Login
+                registerForm.classList.add('d-none-custom');
+                loginForm.classList.remove('d-none-custom');
+                formTitle.innerText = "Acessar Conta";
+                toggleText.innerText = "Não tem uma conta? ";
+                btnToggle.innerText = "Cadastre-se";
+            }
+            isLoginMode = !isLoginMode;
+        });
+    </script>
+
+    <script type="module" src="auth.js"></script>
+
+</body>
+</html>

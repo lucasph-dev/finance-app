@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Selecionar Perfil - FinControl</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.10.0/font/bootstrap-icons.css">
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+    <div class="container d-flex flex-column justify-content-center align-items-center min-vh-100">
+        
+        <div class="text-center mb-5">
+            <h1 class="app-brand display-4 mb-2">Fin<span>Control</span></h1>
+            <p class="text-muted">Quem vai gerenciar as finanças hoje?</p>
+        </div>
+
+        <div id="loading" class="text-center">
+            <div class="spinner-border text-success" role="status"></div>
+            <p class="mt-2 text-white-50 small">Buscando perfis...</p>
+        </div>
+
+        <div id="listaPerfis" class="row g-4 justify-content-center w-100 d-none" style="max-width: 900px;">
+            </div>
+
+        <div class="mt-5">
+            <a href="perfil.html" class="btn btn-outline-secondary rounded-pill px-4">
+                <i class="bi bi-plus-lg me-2"></i>Criar Novo Perfil
+            </a>
+            <button id="btnLogout" class="btn btn-link text-muted text-decoration-none ms-3">Sair</button>
+        </div>
+
+    </div>
+
+    <script type="module" src="selecao.js"></script>
+</body>
+</html>

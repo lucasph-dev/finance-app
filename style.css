@@ -1,0 +1,252 @@
+@import url('https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600;700&display=swap');
+
+:root {
+    --primary-blue: #0f172a;
+    --accent-green: #10b981;
+    --action-orange: #f97316;
+    
+    /* MUDANÇA: Texto "claro" agora é branco puro */
+    --text-light: #ffffff; 
+    
+    /* MUDANÇA: O texto "mutado" (secundário) agora é um cinza bem claro, quase branco */
+    --text-muted: #e2e8f0; 
+    
+    --glass-bg: rgba(255, 255, 255, 0.08); /* Um pouco mais visível */
+    --glass-border: rgba(255, 255, 255, 0.2); /* Borda mais forte */
+}
+
+body {
+    font-family: 'Poppins', sans-serif;
+    background-color: var(--primary-blue);
+    background-image: radial-gradient(circle at 10% 20%, rgba(16, 185, 129, 0.15) 0%, transparent 20%),
+                      radial-gradient(circle at 90% 80%, rgba(249, 115, 22, 0.15) 0%, transparent 20%);
+    min-height: 100vh;
+    color: var(--text-light);
+}
+
+/* --- Correção de Cores de Texto (Bootstrap Overrides) --- */
+.text-muted {
+    color: var(--text-muted) !important;
+    opacity: 0.9; /* Garante que não fique transparente demais */
+}
+
+/* Força os Labels (Email/Senha) a serem bem visíveis */
+label, .form-label {
+    color: #ffffff !important; /* Branco puro */
+    font-weight: 500; /* Um pouco mais gordinho para ler melhor */
+    opacity: 1;
+    letter-spacing: 0.5px;
+    font-size: 0.85rem;
+    text-transform: uppercase;
+}
+
+/* Links (Esqueceu a senha / Cadastre-se) */
+a { 
+    text-decoration: none; 
+    color: var(--accent-green); 
+    transition: 0.3s; 
+}
+a:hover { 
+    color: #6ee7b7; 
+}
+
+/* Link específico para "Esqueceu a senha?" para não sumir */
+a.text-muted:hover {
+    color: white !important;
+    text-decoration: underline;
+}
+
+/* --- Componente: Card de Vidro --- */
+.glass-card {
+    background: var(--glass-bg);
+    backdrop-filter: blur(12px);
+    -webkit-backdrop-filter: blur(12px);
+    border: 1px solid var(--glass-border);
+    border-radius: 24px;
+    box-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.5);
+}
+
+/* --- Inputs Customizados --- */
+.form-control {
+    background-color: rgba(0, 0, 0, 0.2); /* Fundo um pouco mais escuro para destacar o texto digitado */
+    border: 1px solid var(--glass-border);
+    color: white !important; /* Texto digitado sempre branco */
+    padding: 0.8rem 1rem;
+    border-radius: 12px;
+}
+
+.form-control:focus {
+    background-color: rgba(0, 0, 0, 0.3);
+    border-color: var(--accent-green);
+    color: white;
+    box-shadow: 0 0 0 4px rgba(16, 185, 129, 0.1);
+}
+
+.form-control::placeholder {
+    color: rgba(255, 255, 255, 0.5); /* Placeholder visível mas discreto */
+}
+
+/* Remove fundo branco do autocomplete */
+input:-webkit-autofill,
+input:-webkit-autofill:hover, 
+input:-webkit-autofill:focus, 
+input:-webkit-autofill:active{
+    -webkit-box-shadow: 0 0 0 30px #1e293b inset !important; /* Cor de fundo compatível */
+    -webkit-text-fill-color: white !important;
+    transition: background-color 5000s ease-in-out 0s;
+}
+
+/* --- Botões --- */
+.btn-action {
+    background-color: var(--action-orange);
+    border: none;
+    color: white;
+    font-weight: 600;
+    padding: 12px;
+    border-radius: 12px;
+    transition: transform 0.2s, background-color 0.2s;
+}
+
+.btn-action:hover {
+    background-color: #ea580c;
+    transform: translateY(-2px);
+    color: white;
+}
+
+/* --- Tipografia da Marca --- */
+.app-brand { font-weight: 700; letter-spacing: -1px; color: white; }
+.app-brand span { color: var(--accent-green); }
+
+/* ... (mantenha todo o código anterior) ... */
+
+/* --- Modal Estilo Glass --- */
+.modal-content.glass-modal {
+    background: rgba(15, 23, 42, 0.85); /* Azul escuro bem opaco */
+    backdrop-filter: blur(15px);
+    -webkit-backdrop-filter: blur(15px);
+    border: 1px solid var(--glass-border);
+    border-radius: 24px;
+    color: white;
+    box-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.8);
+}
+
+.modal-header {
+    border-bottom: 1px solid var(--glass-border);
+}
+
+.modal-footer {
+    border-top: 1px solid var(--glass-border);
+}
+
+.btn-close-white {
+    filter: invert(1) grayscale(100%) brightness(200%);
+}
+
+/* ... (todo o código anterior) ... */
+
+/* --- Estilos da Dashboard --- */
+.balance-card {
+    background: linear-gradient(135deg, rgba(255,255,255,0.1) 0%, rgba(255,255,255,0.05) 100%);
+    border: 1px solid rgba(255,255,255,0.2);
+}
+
+.text-money {
+    font-family: 'Poppins', sans-serif;
+    letter-spacing: -1px;
+    font-weight: 700;
+    color: white;
+}
+
+/* Botões de Ação Rápida */
+.btn-income {
+    background-color: rgba(16, 185, 129, 0.2);
+    color: #10b981;
+    border: 1px solid #10b981;
+    transition: 0.3s;
+}
+.btn-income:hover {
+    background-color: #10b981;
+    color: white;
+}
+
+.btn-expense {
+    background-color: rgba(239, 68, 68, 0.2);
+    color: #ef4444; /* Vermelho suave */
+    border: 1px solid #ef4444;
+    transition: 0.3s;
+}
+.btn-expense:hover {
+    background-color: #ef4444;
+    color: white;
+}
+
+/* Lista de Transações */
+.transaction-item {
+    background: rgba(255,255,255,0.03);
+    border-bottom: 1px solid rgba(255,255,255,0.05);
+    transition: 0.2s;
+}
+.transaction-item:hover {
+    background: rgba(255,255,255,0.08);
+}
+/* --- 1. ESTILO GERAL DO APP (Prevenção de Fundo Branco) --- */
+body {
+    background-color: #0f1014; /* Garante fundo escuro na página toda */
+    color: #fff;
+}
+
+/* --- 2. CORREÇÃO DOS CARDS (Obrigações e Histórico) --- */
+/* Isso mata o fundo branco padrão do Bootstrap */
+.card, .glass-card {
+    background-color: rgba(22, 22, 24, 0.7) !important; /* Fundo escuro translúcido */
+    background-image: linear-gradient(145deg, rgba(255,255,255,0.05) 0%, rgba(255,255,255,0.0) 100%);
+    backdrop-filter: blur(12px); /* Efeito de vidro borrado */
+    -webkit-backdrop-filter: blur(12px);
+    border: 1px solid rgba(255, 255, 255, 0.08);
+    box-shadow: 0 4px 30px rgba(0, 0, 0, 0.3);
+    color: #fff !important; /* Texto sempre branco */
+}
+
+/* Remove bordas extras que o bootstrap coloca */
+.card-header, .card-footer {
+    background-color: transparent;
+    border-color: rgba(255, 255, 255, 0.1);
+}
+
+/* --- 3. CORREÇÃO DOS MODAIS (Pop-ups) --- */
+.modal-content {
+    background-color: #1a1a1a !important; /* Fundo base escuro */
+    background-image: linear-gradient(135deg, rgba(255, 255, 255, 0.05), rgba(255, 255, 255, 0));
+    backdrop-filter: blur(10px);
+    border: 1px solid rgba(255, 255, 255, 0.1);
+    color: #e0e0e0; /* Texto claro */
+}
+
+/* Título e Rodapé do Modal */
+.modal-header, .modal-footer {
+    border-color: rgba(255, 255, 255, 0.1);
+}
+
+/* Botão de fechar (X) - Inverte a cor para branco */
+.btn-close {
+    filter: invert(1) grayscale(100%) brightness(200%);
+}
+
+/* --- 4. CAMPOS DE FORMULÁRIO (Inputs) --- */
+/* Para não ficarem brancos estourados */
+.form-control, .form-select {
+    background-color: rgba(0, 0, 0, 0.4) !important;
+    border: 1px solid rgba(255, 255, 255, 0.2);
+    color: #fff !important;
+}
+
+.form-control::placeholder {
+    color: rgba(255, 255, 255, 0.4);
+}
+
+.form-control:focus {
+    background-color: rgba(0, 0, 0, 0.6) !important;
+    border-color: var(--bs-success); /* Cor verde ao clicar */
+    box-shadow: 0 0 0 0.25rem rgba(25, 135, 84, 0.25);
+    color: #fff !important;
+}
