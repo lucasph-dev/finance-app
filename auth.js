@@ -2,55 +2,82 @@ import { auth } from './firebase-config.js';
 import { 
     signInWithEmailAndPassword, 
     createUserWithEmailAndPassword,
-    updateProfile // Importante: Função para atualizar o nome
+    updateProfile,
+    sendPasswordResetEmail 
 } from "https://www.gstatic.com/firebasejs/10.8.0/firebase-auth.js";
 
-// --- Lógica de Login ---
+// --- LOGIN (Funciona no index.html) ---
 const loginForm = document.getElementById('loginForm');
 if(loginForm) {
     loginForm.addEventListener('submit', (e) => {
         e.preventDefault();
+        
+        // IDs batendo com index.html
         const email = document.getElementById('email').value;
-        const senha = document.getElementById('senha').value;
+        const password = document.getElementById('password').value; // ID é 'password', não 'senha'
 
-        signInWithEmailAndPassword(auth, email, senha)
+        signInWithEmailAndPassword(auth, email, password)
             .then(() => {
-                // O redirecionamento acontece, e a próxima página vai mostrar o modal
                 window.location.href = "selecao.html";
             })
             .catch((error) => {
-                alert("Erro ao entrar: " + error.message);
+                console.error(error);
+                alert("Erro ao entrar: Verifique e-mail e senha.");
             });
     });
 }
 
-// --- Lógica de Cadastro (COM NOME) ---
-const registerForm = document.getElementById('form-register'); // Certifique-se que o ID no HTML é form-register
+// --- CADASTRO (Funciona no cadastro.html) ---
+const registerForm = document.getElementById('form-register');
 if(registerForm) {
     registerForm.addEventListener('submit', async (e) => {
         e.preventDefault();
         
+        // IDs batendo com cadastro.html
         const nome = document.getElementById('regNome').value;
         const email = document.getElementById('regEmail').value;
         const senha = document.getElementById('regPassword').value;
 
         try {
-            // 1. Criar o usuário
             const userCredential = await createUserWithEmailAndPassword(auth, email, senha);
             const user = userCredential.user;
 
-            // 2. Atualizar o perfil com o NOME
             await updateProfile(user, {
                 displayName: nome
             });
 
-            console.log("Conta criada para:", nome);
-            // 3. Redirecionar
-            window.location.href = "criar-perfil.html";
+            console.log("Conta criada:", nome);
+            window.location.href = "perfil.html"; // Vai para criação de perfil financeiro
 
         } catch (error) {
             console.error(error);
             alert("Erro ao cadastrar: " + error.message);
         }
+    });
+}
+
+// --- RECUPERAR SENHA (Funciona no index.html) ---
+const btnRecuperar = document.getElementById('btnRecuperar');
+if (btnRecuperar) {
+    btnRecuperar.addEventListener('click', (e) => {
+        e.preventDefault();
+        
+        // Tenta pegar o email preenchido
+        const campoEmail = document.getElementById('email');
+        const email = campoEmail ? campoEmail.value : "";
+
+        if (!email) {
+            alert("Por favor, digite seu e-mail no campo acima primeiro.");
+            return;
+        }
+
+        sendPasswordResetEmail(auth, email)
+            .then(() => {
+                alert("E-mail de redefinição enviado! Verifique sua caixa de entrada.");
+            })
+            .catch((error) => {
+                console.error(error);
+                alert("Erro: " + error.message);
+            });
     });
 }
