@@ -35,6 +35,74 @@ document.addEventListener("DOMContentLoaded", () => {
             localStorage.clear(); 
             window.location.href = "index.html";
         });
+
+// 1. Lógica da Legenda Dinâmica
+const legendas = {
+    "1": "Péssimo 😡",
+    "2": "Ruim 😕",
+    "3": "Regular 😐",
+    "4": "Muito Bom! 🙂",
+    "5": "Excelente! 🤩"
+};
+
+// Usamos o body para garantir que funcione mesmo se o modal abrir depois
+document.body.addEventListener('change', (e) => {
+    if (e.target.name === 'stars') {
+        const legendaEl = document.getElementById('starLegend');
+        if (legendaEl) legendaEl.innerText = legendas[e.target.value];
+    }
+});
+
+// 2. Lógica do Botão de Enviar Feedback
+const btnEnviarFeedback = document.getElementById('btnEnviarFeedback');
+if (btnEnviarFeedback) {
+    btnEnviarFeedback.addEventListener('click', async () => {
+        const estrelaSelecionada = document.querySelector('input[name="stars"]:checked');
+        const comentario = document.getElementById('feedbackTexto').value;
+
+        if (!estrelaSelecionada) {
+            alert("Por favor, selecione uma nota de 1 a 5 estrelas.");
+            return;
+        }
+
+        // Feedback visual no botão
+        btnEnviarFeedback.disabled = true;
+        btnEnviarFeedback.innerText = "Enviando...";
+
+        try {
+            // SALVANDO NO FIREBASE
+            await addDoc(collection(db, "feedbacks"), {
+                uid: auth.currentUser.uid,
+                usuario: auth.currentUser.displayName || "Usuário",
+                email: auth.currentUser.email,
+                estrelas: parseInt(estrelaSelecionada.value),
+                comentario: comentario,
+                data: new Date(),
+                versao: "beta"
+            });
+
+// 1. FECHA O MODAL DE ENVIO (O formulário)
+            fecharModalInstantaneo('modalFeedback');
+
+            // 2. LIMPA O TEXTO
+            document.getElementById('feedbackTexto').value = "";
+
+            // 3. ABRE O MODAL DE SUCESSO (Em vez do alert)
+            const modalSucessoEl = document.getElementById('modalFeedbackSucesso');
+            if (modalSucessoEl) {
+                const modalSucesso = new bootstrap.Modal(modalSucessoEl);
+                modalSucesso.show();
+            }
+
+        } catch (error) {
+            console.error(error);
+            alert("Erro ao enviar. Verifique sua internet."); // Mantemos este alert apenas para erros reais
+        } finally {
+            btnEnviarFeedback.disabled = false;
+            btnEnviarFeedback.innerText = "ENVIAR";
+        }
+    });
+}
     }
 
     onAuthStateChanged(auth, async (user) => {
@@ -419,3 +487,4 @@ function formatarData(d) {
     const p = d.split('-');
     return `${p[2]}/${p[1]}/${p[0]}`;
 }
+

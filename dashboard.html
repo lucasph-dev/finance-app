@@ -411,6 +411,56 @@
         </div>
     </div>
 
+<div class="modal fade" id="modalFeedback" tabindex="-1" aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered">
+        <div class="modal-content glass-modal border-0">
+            <div class="modal-header border-0 pb-0">
+                <h5 class="modal-title fw-bold text-white">Sua opinião importa! 🚀</h5>
+                <button type="button" class="btn-close btn-close-white" data-bs-dismiss="modal"></button>
+            </div>
+            <div class="modal-body text-center">
+                <p class="text-white-50 small mb-4">Como você avalia a versão atual do FinControl?</p>
+                
+                <div class="star-rating">
+    <input type="radio" name="stars" id="star5" value="5"><label for="star5" class="bi bi-star-fill"></label>
+    <input type="radio" name="stars" id="star4" value="4"><label for="star4" class="bi bi-star-fill"></label>
+    <input type="radio" name="stars" id="star3" value="3"><label for="star3" class="bi bi-star-fill"></label>
+    <input type="radio" name="stars" id="star2" value="2"><label for="star2" class="bi bi-star-fill"></label>
+    <input type="radio" name="stars" id="star1" value="1"><label for="star1" class="bi bi-star-fill"></label>
+</div>
+
+<p id="starLegend" class="text-warning fw-bold mt-2">Clique para avaliar</p>
+
+                <div class="mb-3">
+                    <textarea id="feedbackTexto" class="form-control bg-dark border-secondary text-white" 
+                        rows="3" placeholder="O que podemos melhorar? Deixe sua sugestão..."></textarea>
+                </div>
+                
+                <button type="button" id="btnEnviarFeedback" class="btn btn-success w-100 rounded-pill fw-bold py-2 shadow-sm">
+                    ENVIAR SUGESTÃO
+                </button>
+            </div>
+        </div>
+    </div>
+</div>
+
+<button class="btn btn-dark border-secondary rounded-circle shadow-lg" 
+    style="position: fixed; bottom: 20px; right: 20px; width: 50px; height: 50px; z-index: 1000;"
+    data-bs-toggle="modal" data-bs-target="#modalFeedback">
+    <i class="bi bi-chat-dots-fill"></i>
+</button>
+<div class="modal fade" id="modalFeedbackSucesso" tabindex="-1" aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered modal-sm">
+        <div class="modal-content glass-modal border-0 text-center p-4" style="background: rgba(20, 20, 20, 0.95); backdrop-filter: blur(10px); border: 1px solid rgba(255,255,255,0.1);">
+            <div class="text-success display-1 mb-3">
+                <i class="bi bi-check2-circle"></i>
+            </div>
+            <h5 class="text-white fw-bold">Enviado!</h5>
+            <p class="text-white-50 small">Obrigado por nos ajudar a melhorar o FinControl e lembre-se, você pode enviar um novo feedback sempre que quiser.</p>
+            <button type="button" class="btn btn-success rounded-pill w-100 fw-bold" data-bs-dismiss="modal">OK</button>
+        </div>
+    </div>
+    
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
     <script type="module" src="dashboard.js"></script>
 </body>

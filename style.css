@@ -233,7 +233,7 @@ body {
 }
 
 /* --- 4. CAMPOS DE FORMULÁRIO (Inputs) --- */
-/* Para não ficarem brancos estourados */
+
 .form-control, .form-select {
     background-color: rgba(0, 0, 0, 0.4) !important;
     border: 1px solid rgba(255, 255, 255, 0.2);
@@ -246,7 +246,25 @@ body {
 
 .form-control:focus {
     background-color: rgba(0, 0, 0, 0.6) !important;
-    border-color: var(--bs-success); /* Cor verde ao clicar */
+    border-color: var(--bs-success); 
     box-shadow: 0 0 0 0.25rem rgba(25, 135, 84, 0.25);
     color: #fff !important;
+}
+.star-rating {
+    display: flex;
+    flex-direction: row-reverse;
+    justify-content: center;
+    gap: 8px;
+}
+.star-rating input { display: none; }
+.star-rating label {
+    font-size: 2.3rem;
+    color: #444;
+    cursor: pointer;
+    transition: 0.2s;
+}
+.star-rating input:checked ~ label,
+.star-rating label:hover,
+.star-rating label:hover ~ label {
+    color: #ffc107 !important;
 }
